@@ -1,10 +1,8 @@
 package ru.clevertec.simpleapplication.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import ru.clevertec.simpleapplication.client.ApiFeignClient;
 import ru.clevertec.simpleapplication.entity.Student;
 import ru.clevertec.simpleapplication.entity.User;
 import ru.clevertec.simpleapplication.service.ApiService;
@@ -15,10 +13,16 @@ import ru.clevertec.simpleapplication.service.ApiService;
 public class ApiController {
 
     private final ApiService apiService;
+    private final ApiFeignClient feign;
 
     @GetMapping()
     public Student convertToStudent(@RequestBody User user) {
         return apiService.convertToStudent(user);
+    }
+
+    @PostMapping(value = "/send")
+    public String sendRequest(@RequestBody User user) {
+         return feign.registerUser(user);
     }
 
    }

@@ -1,3 +1,13 @@
 api:
   service:
     url: http://localhost:9877
+
+logging:
+  level:
+    ru.clevertec : DEBUG
+feign:
+  client:
+    config:
+      registration :
+        logger-level: full
+
